@@ -1,0 +1,13 @@
+{
+    "timestamp": "2026-08-17T08:27:10.542245",
+    "prediction": {
+        "temperature_C": 26.381000000000014,
+        "rainfall_mm": 0.2015555555555557,
+        "rain_occurrence": 0,
+        "rain_probability": 0.4456345696109088,
+        "wind_speed_kmh": 14.320333333333332,
+        "pressure_hPa": 1009.2565555555558,
+        "humidity_percent": 85.70777777777778,
+        "pm2_5": 13.087111111111108
+    }
+}

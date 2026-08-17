@@ -1,0 +1,11 @@
+{
+    "timestamp": "2026-08-17 23:00:00",
+    "actual": {
+        "temperature_C": 26.2,
+        "rainfall_mm": 0.3,
+        "wind_speed_kmh": 16.1,
+        "pressure_hPa": 1010.2,
+        "humidity_percent": 86.0,
+        "pm2_5": 11.7
+    }
+}

@@ -1,0 +1,32 @@
+{
+    "temperature_C": {
+        "predicted": 26.381000000000014,
+        "actual": 26.2,
+        "absolute_error": 0.18100000000001515
+    },
+    "rainfall_mm": {
+        "predicted": 0.2015555555555557,
+        "actual": 0.3,
+        "absolute_error": 0.09844444444444428
+    },
+    "wind_speed_kmh": {
+        "predicted": 14.320333333333332,
+        "actual": 16.1,
+        "absolute_error": 1.7796666666666692
+    },
+    "pressure_hPa": {
+        "predicted": 1009.2565555555558,
+        "actual": 1010.2,
+        "absolute_error": 0.9434444444442533
+    },
+    "humidity_percent": {
+        "predicted": 85.70777777777778,
+        "actual": 86.0,
+        "absolute_error": 0.2922222222222217
+    },
+    "pm2_5": {
+        "predicted": 13.087111111111108,
+        "actual": 11.7,
+        "absolute_error": 1.3871111111111087
+    }
+}
