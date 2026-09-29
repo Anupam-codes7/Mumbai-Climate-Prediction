@@ -1,142 +1,133 @@
-# 🌦️ Mumbai Climate ML Prediction
+🌦️ Mumbai Climate ML Prediction
 
-### Live Weather Intelligence & Next-Hour Machine Learning Prediction
+A machine-learning based web application that uses weather and air-quality data for Mumbai to generate next-hour climate predictions through an interactive Streamlit dashboard.
 
-Mumbai Climate ML Prediction is a machine-learning based weather and air-quality forecasting system designed specifically for Mumbai.
+🚀 Live Demo
 
-The project combines historical weather observations, live weather and air-quality data, temporal patterns, rainfall statistics, cyclical features, seasonal indicators and multi-scale lag features to generate **next-hour predictions**.
+🌐 Live Dashboard: https://mumbai-climate-prediction-8y5ouw5reoy3ueshg4tsw.streamlit.app/
 
-The system uses **7 Extra Trees ML models** trained using **476 engineered features**.
+📂 GitHub Repository: https://github.com/Anupam-codes7/Mumbai-Climate-Prediction
 
----
+🤗 ML Model Repository: https://huggingface.co/ezdevz/mumbai-climate-ml-models
 
-## 📌 Project Overview
+The dashboard is publicly accessible for demonstration. The source-code repository can remain private while the deployed dashboard is shared publicly.
 
-Weather conditions in Mumbai change rapidly due to seasonal patterns, rainfall, humidity, wind and atmospheric conditions.
+📌 Project Overview
 
-This project aims to provide a simple ML-based system that can:
+Mumbai Climate ML Prediction is an end-to-end machine learning project designed to predict important weather and air-quality parameters for the next hour.
 
-- 🌍 Fetch Mumbai weather and air-quality data
-- ⚙️ Generate engineered climate features
-- 🤖 Predict next-hour weather conditions
-- 🌧️ Estimate rainfall and rain occurrence probability
-- 🌬️ Predict wind speed and atmospheric pressure
-- 💧 Predict humidity
-- 🫁 Predict PM2.5 concentration
-- 📊 Compare predictions with the latest available observation
-- 📈 Display model performance through an interactive Streamlit dashboard
+The system collects weather and air-quality observations, performs feature engineering, creates 476 model input features, and uses seven trained Extra Trees models to generate predictions.
 
----
+The project demonstrates the complete ML workflow:
 
-# 🚀 Key Features
+Data Collection → Feature Engineering → Model Training → Prediction → Visualization → Deployment
 
-## 🌍 Live Mumbai Weather
+🎯 Objectives
 
-The application retrieves Mumbai weather and air-quality information and displays:
+Collect weather and air-quality data for Mumbai.
 
-- Temperature
-- Humidity
-- Wind speed
-- Atmospheric pressure
-- Rainfall
-- PM2.5
-- Other atmospheric and air-quality variables
+Engineer meaningful temporal and historical features.
 
----
+Predict next-hour weather and PM2.5 values.
 
-## 🤖 Next-Hour ML Prediction
+Predict the probability of rainfall occurrence.
 
-The system generates next-hour predictions for:
+Build an interactive dashboard for visualization.
 
-| Target | Output |
-|---|---|
-| Temperature | °C |
-| Rainfall | mm |
-| Rain occurrence | Yes / No |
-| Rain probability | % |
-| Wind speed | km/h |
-| Pressure | hPa |
-| Humidity | % |
-| PM2.5 | µg/m³ |
+Deploy the complete ML application online.
 
----
+Separate large trained model files from the GitHub source-code repository.
 
-# 🧠 Machine Learning Pipeline
+🏗️ System Architecture
 
-The project follows this pipeline:
+                  Open-Meteo APIs
+                       │
+              ┌────────┴────────┐
+              │                 │
+        Weather Data       Air Quality Data
+              │                 │
+              └────────┬────────┘
+                       ↓
+              Data Processing
+                       ↓
+              Feature Engineering
+                       ↓
+              476 Input Features
+                       ↓
+             ┌───────────────────┐
+             │  Extra Trees ML   │
+             │      Models       │
+             └───────────────────┘
+                       │
+             ┌─────────┴─────────┐
+             ↓                   ↓
+      Weather Predictions   Rain Classification
+             │                   │
+             └─────────┬─────────┘
+                       ↓
+              Streamlit Dashboard
+                       │
+                       ↓
+                Live Web Demo
 
-```text
-Weather + Air Quality Data
-            ↓
-       Data Validation
-            ↓
-     Feature Engineering
-            ↓
-     476 ML Features
-            ↓
-   Train / Validation / Test
-            ↓
-     Extra Trees Models
-            ↓
-     Next-Hour Prediction
-            ↓
- Prediction vs Observation
-            ↓
-     Streamlit Dashboard
+🤖 Machine Learning Pipeline
 
-     ⚙️ Feature Engineering
+The project uses 7 Extra Trees models:
 
-A major part of the project is the creation of meaningful features from the raw weather and air-quality data.
+Regression Models
 
-The final ML configuration contains:
+Temperature
 
-476 input features
+Rainfall
 
-⏰ Temporal Features
+Wind Speed
 
-The system extracts:
+Pressure
 
-Year
-Month
-Day
-Day of year
-Day of week
-Hour
-🔄 Cyclical Time Features
+Humidity
 
-Cyclical transformations are used to represent repeating time patterns:
+PM2.5
 
-hour_sin
-hour_cos
-day_of_year_sin
-day_of_year_cos
-day_of_week_sin
-day_of_week_cos
+Classification Model
 
-This allows the ML models to understand that, for example, 23:00 and 00:00 are close in time.
+Rain Occurrence
 
-🌬️ Wind Direction Features
+The rain-occurrence model uses a binary target derived from rainfall:
 
-Wind direction is represented using:
+Rain > 0.1 mm  → Rain Occurrence = 1
+Rain ≤ 0.1 mm  → Rain Occurrence = 0
 
-wind_direction_sin
-wind_direction_cos
+Why Extra Trees?
 
-This avoids treating 0° and 360° as completely different directions.
+Extra Trees was selected because it can handle a large number of features and capture complex non-linear relationships in weather data. Combining many randomized decision trees also makes the model more robust than relying on a single decision tree.
 
-🌦️ Mumbai Seasonal Features
+📊 Feature Engineering
 
-The project includes Mumbai-specific seasonal indicators:
+The final model input contains 476 engineered features.
 
-Monsoon
-Pre-monsoon
-Post-monsoon
-Winter
-⏮️ Multi-Scale Lag Features
+Features include:
 
-Historical values are used to capture short-term and long-term climate patterns.
+Raw weather variables
 
-Lag periods include:
+Air-quality variables
+
+Hour/day/month information
+
+Cyclical time features
+
+Wind direction transformations
+
+Mumbai seasonal indicators
+
+Lag features
+
+Historical rainfall features
+
+Rolling rainfall statistics
+
+Lag Features
+
+Historical values are used at multiple time intervals, including:
 
 1 hour
 3 hours
@@ -147,172 +138,222 @@ Lag periods include:
 72 hours
 168 hours
 
-These features are generated for variables such as:
+This allows the models to use recent and longer-term patterns when generating the next-hour prediction.
+
+Cyclical Features
+
+Time-based variables are transformed using sine/cosine representations so that cyclic relationships such as:
+
+23:00 → 00:00
+December → January
+
+are represented more naturally.
+
+🎯 Prediction Targets
+
+The system predicts:
+
+Target
+
+Type
 
 Temperature
+
+Regression
+
 Rainfall
-Wind speed
+
+Regression
+
+Rain Occurrence
+
+Classification
+
+Wind Speed
+
+Regression
+
 Pressure
-Relative humidity
-PM2.5
-PM10
-Carbon monoxide
-Nitrogen dioxide
-Sulphur dioxide
-Ozone
-🌧️ Rainfall-Specific Features
 
-The system also creates rainfall history features including:
+Regression
 
-24-hour rainfall total
-72-hour rainfall total
-168-hour rainfall total
-Rainy hours in previous 24 hours
-Rainy hours in previous 72 hours
-Rainy hours in previous 168 hours
-Maximum rainfall
-Previous rainfall indicators
-
-These features help the model understand recent rainfall conditions.
-
-🤖 ML Models
-
-The project uses Extra Trees models for the prediction tasks.
-
-Seven separate models are used:
-
-1. Temperature
-2. Rainfall
-3. Rain occurrence
-4. Wind speed
-5. Pressure
-6. Humidity
-7. PM2.5
-Regression Models
-
-Regression models predict continuous values for:
-
-Temperature
-Rainfall
-Wind speed
-Pressure
 Humidity
+
+Regression
+
 PM2.5
-Classification Model
 
-A separate classification model predicts:
+Regression
 
-Whether rainfall is expected during the next hour.
+The prediction target is generated using the next observation:
 
-The project also calculates the probability of rainfall using the classifier's probability output.
+Current time (t) → Predict weather at t + 1 hour
 
-🌧️ Rainfall Classification
+📈 Model Evaluation
 
-Rain occurrence is formulated as a binary classification problem.
+The rainfall-occurrence classification model was evaluated using:
 
-Rain > 0.1 mm
-       ↓
-Rain = 1
+Metric
 
-
-Rain ≤ 0.1 mm
-       ↓
-Rain = 0
-
-The dashboard reports:
+Result
 
 Accuracy
+
+84.17%
+
 Precision
+
+78.50%
+
 Recall
+
+76.83%
+
 F1 Score
-ROC-AUC
-📊 Model Evaluation
 
-The project evaluates regression models using metrics such as:
+77.66%
 
-R²
-MAE
-RMSE
-
-The rainfall occurrence model is evaluated using:
-
-Accuracy
-Precision
-Recall
-F1 Score
 ROC-AUC
 
-The Streamlit dashboard presents these metrics visually.
+92.76%
 
-🖥️ Streamlit Dashboard
+These values represent the evaluated classification model performance. Dashboard comparisons with the latest available observation should not be interpreted as formal forecast-accuracy metrics because the displayed observation may not always correspond exactly to the future prediction horizon.
 
-The project includes an interactive Streamlit dashboard.
+🌐 Interactive Dashboard
 
-Dashboard Sections
-🌍 Current Mumbai Weather
+The Streamlit dashboard provides:
 
-Displays the latest available weather and air-quality observations.
-
-📝 Current Conditions
-
-Provides a simple interpretation of:
+Current Mumbai Weather
 
 Temperature
+
 Humidity
-Wind
+
+Wind Speed
+
+Pressure
+
+Rainfall
+
 PM2.5
-Current rainfall
-🤖 ML Next-Hour Prediction
 
-Displays predictions generated by the seven Extra Trees models.
+Next-Hour ML Prediction
 
-🌧️ Rain Probability
+Predicted temperature
 
-A visual gauge displays the predicted probability of rainfall.
+Predicted rainfall
 
-📊 Prediction Analysis
+Rain occurrence
 
-The dashboard compares:
+Rain probability
 
-ML Prediction vs Latest Observation
+Predicted wind speed
 
-Each variable is visualized separately so that variables with different units and scales are not incorrectly combined into a single axis.
+Predicted pressure
 
-📉 Absolute Difference
+Predicted humidity
 
-Displays the absolute difference between the ML prediction and latest observation.
+Predicted PM2.5
 
-🏆 Model Performance
+Dashboard Features
 
-Displays regression and classification performance metrics.
+🔄 Live prediction refresh
 
-🛠️ Technology Stack
-Technology	Purpose
-Python	Core programming language
-Pandas	Data processing
-NumPy	Numerical operations
-Scikit-learn	Machine learning
-Extra Trees	ML prediction models
-Joblib	Model/configuration serialization
-Requests	API requests
-Plotly	Interactive visualizations
-Streamlit	Dashboard
-Jupyter Notebook	Data exploration and experimentation
-Git	Version control
-GitHub	Project repository
+📊 Interactive Plotly visualizations
+
+🌧️ Rain probability gauge
+
+📈 Prediction analysis
+
+📏 Absolute difference analysis
+
+🧪 Model performance metrics
+
+🌦️ Current weather and air-quality information
+
+📱 Browser-based deployment
+
+☁️ Deployment Architecture
+
+Large trained model files are not stored in the GitHub repository because the seven .joblib files together are approximately 1 GB.
+
+Instead:
+
+GitHub
+│
+├── Source Code
+├── Streamlit Dashboard
+├── README
+├── Requirements
+└── Project Files
+        │
+        ↓
+Streamlit Community Cloud
+        │
+        ↓
+Hugging Face Hub
+        │
+        └── 7 trained Extra Trees models
+
+The application uses huggingface_hub to download a model automatically when it is not available locally.
+
+Model Repository
+
+https://huggingface.co/ezdevz/mumbai-climate-ml-models
+
+🛠️ Tech Stack
+
+Programming
+
+Python
+
+Data & ML
+
+Pandas
+
+NumPy
+
+Scikit-learn
+
+Joblib
+
+Data Sources
+
+Open-Meteo Weather API
+
+Open-Meteo Air Quality API
+
+Visualization
+
+Plotly
+
+Streamlit
+
+Deployment & Version Control
+
+Git
+
+GitHub
+
+Hugging Face Hub
+
+Streamlit Community Cloud
+
 📁 Project Structure
+
 Mumbai-Climate-Prediction/
 │
 ├── app.py
+├── README.md
+├── requirements.txt
+├── .gitignore
+├── feature_pipeline.txt
 │
 ├── data/
-│   ├── raw/
-│   │   ├── mumbai_weather_2015_2025.csv
-│   │   └── mumbai_weather_hourly_2022_2025.csv
-│   │
-│   └── processed/
-│       ├── mumbai_climate_ml.csv
-│       └── mumbai_weather_air_quality_hourly.csv
+│
+├── images/
+│
+├── notebooks/
 │
 ├── models/
 │   ├── actual_weather.json
@@ -321,45 +362,134 @@ Mumbai-Climate-Prediction/
 │   ├── model_metrics.json
 │   └── prediction.json
 │
-├── notebooks/
-│   ├── 01_Data_Collection.ipynb
-│   └── 01_Mumbai_Data_Collection.ipynb
-│
-├── src/
-│   ├── create_comparison.py
-│   ├── create_metrics.py
-│   ├── feature_engineering.py
-│   ├── live_prediction.py
-│   ├── predict.py
-│   ├── preprocessing.py
-│   └── weather_api.py
-│
-├── feature_pipeline.txt
-├── .gitignore
-└── README.md
-🔄 Data Flow
-             Mumbai Weather Data
-                      +
-             Mumbai Air Quality
-                      ↓
-              Data Collection
-                      ↓
-             Data Preprocessing
-                      ↓
-             Feature Engineering
-                      ↓
-              476 Features
-                      ↓
-        ┌─────────────┴─────────────┐
-        ↓                           ↓
- Regression Models          Rain Classification
-        ↓                           ↓
- Temperature                 Rain / No Rain
- Rainfall                    Probability
- Wind Speed
- Pressure
- Humidity
- PM2.5
-        └─────────────┬─────────────┘
-                      ↓
-             Streamlit Dashboard
+└── src/
+    ├── weather_api.py
+    ├── feature_engineering.py
+    ├── live_prediction.py
+    ├── create_comparison.py
+    └── create_metrics.py
+
+The large trained .joblib Extra Trees models are hosted in the Hugging Face model repository rather than GitHub.
+
+💻 Run Locally
+
+1. Clone the repository
+
+git clone https://github.com/Anupam-codes7/Mumbai-Climate-Prediction.git
+cd Mumbai-Climate-Prediction
+
+2. Create a virtual environment
+
+Windows:
+
+python -m venv venv
+venv\Scripts\activate
+
+3. Install dependencies
+
+pip install -r requirements.txt
+
+4. Run live prediction
+
+python src/live_prediction.py
+
+The script fetches live data, generates the engineered features, loads the ML models, and saves the prediction output.
+
+5. Start the dashboard
+
+streamlit run app.py
+
+The application will open in your browser.
+
+🔄 Live Prediction Workflow
+
+When Refresh Live Prediction is selected:
+
+1. Fetch latest Mumbai weather data
+        ↓
+2. Fetch latest air-quality data
+        ↓
+3. Combine and process the data
+        ↓
+4. Generate the required 476 features
+        ↓
+5. Load the 7 Extra Trees models
+        ↓
+6. Generate next-hour predictions
+        ↓
+7. Save prediction output
+        ↓
+8. Update the Streamlit dashboard
+
+⚠️ Limitations
+
+The system is designed for short-term next-hour prediction.
+
+Weather conditions can change rapidly and may contain uncertainty.
+
+Model performance depends on the quality and availability of historical data.
+
+Live API availability can affect the refresh process.
+
+Dashboard observation-vs-prediction comparisons are intended for visualization and demonstration, not as a substitute for a formal forecast evaluation protocol.
+
+🔮 Future Improvements
+
+Add longer forecasting horizons.
+
+Compare Extra Trees with XGBoost, Random Forest and other ML approaches.
+
+Add automated model retraining.
+
+Add more historical weather stations and spatial features.
+
+Improve rainfall forecasting using dedicated precipitation models.
+
+Add model explainability using feature importance/SHAP.
+
+Add automated monitoring of prediction drift.
+
+Add scheduled data collection and retraining pipelines.
+
+🎓 Academic Relevance
+
+This project demonstrates practical implementation of:
+
+Data collection
+
+Data preprocessing
+
+Feature engineering
+
+Time-series feature creation
+
+Regression
+
+Binary classification
+
+Model evaluation
+
+API integration
+
+Data visualization
+
+Web application development
+
+Cloud deployment
+
+ML model hosting
+
+It provides an end-to-end example of taking an ML model from data processing and training through to a publicly accessible application.
+
+👨‍💻 Author
+
+Anupam Das
+
+B.Tech – Computer Science Engineering
+Specialization: Data Science
+
+GitHub: https://github.com/Anupam-codes7
+
+📜 License
+
+This project is developed for academic, learning and portfolio purposes.
